@@ -90,18 +90,73 @@ subset(filtro_df, subset = Legal_age > FALSE)
 ```
 6) FUNCIONES Y CONDICIOINES DE BUCLE
 6.1)  Construya una función de nombre students_projection que recorra la matriz result_students.
+6.2) Al recorrer filas y columnas obtendrá el valor de la nota que se encuentra en cada celda de la matriz, con este valor aplique las siguientes condiciones para imprimir un mensaje:
+
+6.2.1. Si la nota es menor o igual a 45 imprima "Student at risk"
+6.2.2. Si la nota es mayor a 45 y menor a 61 imprima “Student may be approved”
+6.2.3. Si la nota es mayor o igual a 61 imprima “Student approved”
+
+6.3 Pruebe la función haciendo un llamado a la misma.
+
 ```{r}
 students_projection = function(){
   x = nrow(result_students)
   for(i in 1:5){
     for(j in 1:4){
-      result_students[i,j]
+      if(result_students[i,j] <= 45){
+        print("Student at risk")
+      } else{
+        if(result_students[i,j] > 45 & result_students[i,j] < 61 ){
+          print("Student may be approved")
+        }else{
+          if(result_students[i,j] >= 61){
+            print("Student approved")
+          }
+        }
+          
+      }
       print(result_students[i,j])
     }
   }
 }
 students_projection()
 ```
+7) DATA FRAME Y LAPPLY
+7.1) Construya la función index_education que reciba un parámetro de nombre grade.
+La función debe operar la siguiente fórmula:
+```{r}
+index_education = function(grade){
+  oper = grade/100 + 1
+  oper = oper/2
+  return(oper)
+}
+index_education(10)
+```
+7.2) Utilice students_grades_df seleccionando todas las filas y solamente las primeras 4 columnas, luego asigne el resultado en all_students_grade
+```{r}
+all_students_grade = students_grades_df[,1:4]
+all_students_grade
+```
+7.3) Utilice lapply pasando de parámetros all_students_grade y la función index_education.
+```{r}
+resultado = lapply(all_students_grade, index_education(10))
+resultado
+```
+8)MATH UTILITES
+8.1) Utilice students_grades_df y obtenga el promedio de las 4 asignaturas luego
+asigne los resultados en un vector de nombre score_mean
+```{r}
+students_grades_df
+avg1 = mean(students_grades_df[1, 1:4])
+avg2 = mean(students_grades_df[2, 1:4])
+avg3 = mean(students_grades_df[3, 1:4])
+avg4 = mean(students_grades_df[4, 1:4])
+avg5 = mean(students_grades_df[5, 1:4])
+score_mean = c(avg1, avg2, avg3, avg4, avg5)
+score_mean
+```
+
+
 
 
 
